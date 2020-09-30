@@ -1,0 +1,21 @@
+.single-product {
+    display: flex;
+    padding: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.product-details {
+    padding: 20px
+}
+
+.main-button {
+    background-color:goldenrod;
+    width: 150px;
+    height: 35px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
