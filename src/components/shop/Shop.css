@@ -1,4 +1,4 @@
-.shop-container {
+.twin-container {
     display:flex;
 }
 
@@ -11,4 +11,4 @@
 
 .cart-container {
     margin-left: 10px;
-}
+}   
