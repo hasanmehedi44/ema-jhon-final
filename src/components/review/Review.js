@@ -1,13 +1,25 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import fakeData from '../../fakeData';
 import ReviewItem from '../reviewItem/ReviewItem';
 import Cart from '../cart/Cart';
+import happyImage from '../../images/giphy.gif'
+import { useHistory } from 'react-router-dom';
 
 const Review = () => {
 
     const [cart, setCart] = useState([]);
+    const [orderPlaced, setOrderPlaced] = useState(false);
+    
+    const history = useHistory();
+
+    const handelProceedCheckOut = () => {
+        // setCart([]);
+        // setOrderPlaced(true);
+        // processOrder();
+        history.push('/shipment');
+    }
 
     const handleRemoveProduct = productKey => {
         const newCart = cart.filter(pd => pd.key !== productKey)
@@ -31,6 +43,8 @@ const Review = () => {
     }, [])
 
 
+    const thankYou = <img src={happyImage} ></img>
+
     return (
 
         <div className='twin-container'>
@@ -38,9 +52,14 @@ const Review = () => {
                 {
                     cart.map(pd => <ReviewItem  key={pd.key} product = {pd}  handleRemoveProduct ={handleRemoveProduct}></ReviewItem>)
                 }
+                {
+                    orderPlaced && thankYou
+                }
             </div>
             <div className='cart-container'>
-                <Cart cart={cart} ></Cart>
+                <Cart cart={cart} >
+                    <button onClick={() => handelProceedCheckOut()} className='main-button' >Proceed Check Out</button>
+                </Cart>
             </div>
 
         </div>

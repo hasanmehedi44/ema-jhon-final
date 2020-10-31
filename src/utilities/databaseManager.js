@@ -22,8 +22,7 @@ const getDatabaseCart = () => {
     return JSON.parse(data);
 }
 
-const addToDatabaseCart = 
-(key, count) => {
+const addToDatabaseCart = (key, count) => {
     const currentCart = getDatabaseCart();
     currentCart[key] = count;
     localStorage.setItem(getDataKey(), JSON.stringify(currentCart));
