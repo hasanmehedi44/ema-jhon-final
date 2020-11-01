@@ -7,7 +7,7 @@ import { Button, Input, makeStyles, TextField } from '@material-ui/core';
 import { useContext } from 'react';
 import { UserContext } from '../../App';
 import { useHistory, useLocation } from 'react-router-dom';
-import { handleFbSignIn, handleGoogleSignIN, handleSignOut, initializeLoginFrameWork } from './LoginManager';
+import { creatUserWithEmailAndPassword, handleFbSignIn, handleGoogleSignIN, handleSignOut, initializeLoginFrameWork, signInWithEmailAndPassword } from './LoginManager';
 
 
 initializeLoginFrameWork();
@@ -52,26 +52,30 @@ function Login() {
   const { from } = location.state || { from: { pathname: "/" } };
  
 
-
-
- 
-
-
-  
-
-
-
+  const handleResponse = (res, redirect) => {
+    setUser(res);
+    setLoggedInUser(res);
+    if(redirect) {
+      history.replace(from);
+    }
+  }
 
   const handleCreateAccount = (e) => {
 
     if( newUser && user.email && user.password) {
-      
+      creatUserWithEmailAndPassword(user.name, user.email, user.password)
+      .then(res => {
+        handleResponse(res, true);
+      })
     }
     e.preventDefault();
   }
 
   const handlePasswordSignIn = () => {
-
+    signInWithEmailAndPassword(user.email, user.password)
+    .then(res => {
+      handleResponse(res, true)
+    })
   }
 
   const handleBlur = (e) => {
@@ -96,25 +100,21 @@ function Login() {
   const googleSignIn = () => {
     handleGoogleSignIN()
     .then( res => {
-      setUser(res)
-      setLoggedInUser(res)
-      history.replace(from);
+      handleResponse(res, true);
     })
   }
 
   const signOut = () => {
     handleSignOut()
     .then( res => {
-      setUser(res)
-      setLoggedInUser(res)
+      handleResponse(res, false)
     })
   }
 
   const facebookSignIn = () => {
     handleFbSignIn()
     .then(res => {
-      setUser(res)
-      setLoggedInUser(res)
+      handleResponse(res, true);
     })
   }
 

@@ -47,7 +47,7 @@ function App() {
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
   
-      <h3> {loggedInUser.email} </h3>
+      <h5> {loggedInUser.email} </h5>
       <Router>
         <Header></Header>
         
